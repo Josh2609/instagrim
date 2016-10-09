@@ -47,12 +47,40 @@ public class Register extends HttpServlet {
             throws ServletException, IOException {
         String username=request.getParameter("username");
         String password=request.getParameter("password");
+        String repeatPassword = request.getParameter("repeatPassword");
         
-        User us=new User();
-        us.setCluster(cluster);
-        us.RegisterUser(username, password);
+        if(password.equals(repeatPassword))
+        {
+            if(username.length() >= 4 && password.length() >= 6)
+            {
+                User us=new User();
+                us.setCluster(cluster);
+             
+                if (us.RegisterUser(username, password))
+                {
+                    response.sendRedirect("/Instagrim");
+                }
+                else
+                {
+                   response.sendRedirect("usernameExists.jsp"); 
+                }
+            }
+            else
+            {
+                // response.sendRedirect("errorUserPassLength.jsp");
+                response.sendRedirect("namePassTooShort.jsp");
+            }
+        }
+        else
+        {
+            // response.sendRedirect("errorPasswordsNotMatch.jsp");
+            response.sendRedirect("passDoesntMatch.jsp");
+        }
         
-	response.sendRedirect("/Instagrim");
+        //User us=new User();
+        //us.setCluster(cluster);
+        //us.RegisterUser(username, password);
+	//response.sendRedirect("/Instagrim");
         
     }
 
