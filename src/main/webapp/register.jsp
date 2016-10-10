@@ -8,21 +8,25 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Instagrim</title>
         <link rel="stylesheet" type="text/css" href="Styles.css" />
     </head>
     <body>
+        <div class="pagesize">
         <header>
         <h1>InstaGrim ! </h1>
         <h2>Your world in Black and White</h2>
         </header>
-        <nav>
+        <div class="nav">
             <ul>
                 
-                <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
+                <li><a href="/Instagrim">Home</a></li>
+                <li><a href="login.jsp">Login</a></li>
+                <li><a href="/Instagrim/Images/majed">Samples</a></li>
             </ul>
-        </nav>
+        </div>
        
         <article>
             <h3>Register as user</h3>
@@ -37,7 +41,8 @@
                     <li>User Name <input type="text" name="username" required="true"
                             <% String usrnme = (String)request.getAttribute("username");
                                 if(usrnme != null)%>
-                                    value=<%= usrnme %>
+                                    value=<%= usrnme%>
+     
                         ></li>
                     <li>First Name <input type="text" name="firstName" required="false"></li>
                     <li>Last Name <input type="text" name="lastName" required="false"></li>
@@ -51,9 +56,7 @@
 
         </article>
         <footer>
-            <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
-            </ul>
         </footer>
+        </div>
     </body>
 </html>

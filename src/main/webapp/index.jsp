@@ -10,19 +10,21 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8"/>
         <title>Instagrim</title>
         <link rel="stylesheet" type="text/css" href="Styles.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
+        <div class="pagesize">
         <header>
             <h1>InstaGrim ! </h1>
             <h2>Your world in Black and White</h2>
-        </header>
-        <nav>
+            
+             <div class="nav">
             <ul>
 
-               
+               <li><a class="active" href="/Instagrim">Home</a></li>
                 <li><a href="upload.jsp">Upload</a></li>
                     <%
                         
@@ -32,23 +34,28 @@
                             if (lg.getlogedin()) {
                     %>
 
-                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Images</a></li>
                     <%}
                             }else{
                                 %>
                  <li><a href="register.jsp">Register</a></li>
                 <li><a href="login.jsp">Login</a></li>
-                <%
-                                        
-                            
-                    }%>
+                <%  }%>
             </ul>
-        </nav>
+       
+        </div>
+        </header>
+       
+            <div class="text">
+       <img src="BAndWSkyline.jpg" class="homeImg" alt="Black and White Skyline"/>
+                
+            </div>
+        
         <footer>
             <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
-                <li>&COPY; Andy C</li>
+                <li>&COPY; Andy Cobley & Josh Corps</li>
             </ul>
         </footer>
+            </div>
     </body>
 </html>

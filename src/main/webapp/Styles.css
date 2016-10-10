@@ -9,8 +9,132 @@ and open the template in the editor.
 */
 
 
-nav {
-    text-align: left;
-    border: 2px;
-    float: right;
+
+html, body {
+  height: 100%;
+  min-height: 100%;
+  background: #211E1E;
+  color: white;
+}
+
+th a
+{
+   text-decoration: none;
+}
+
+.pagesize 
+{
+	background-color: #2f3036;
+	max-width: 60%;
+	/*max-height: 150%;
+	min-height: 90%;*/
+	margin: auto;
+	padding: 40px;
+}
+
+.text p, h1, h2, h3
+{
+	color: white;
+	padding: 10px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.text h1
+{
+	text-align: center;
+	font-size: 2.3em;
+}
+
+
+.nav ul {
+  list-style: none;
+  background-color: #2f3036;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.nav li 
+{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #211E1E;
+    width: 120px;
+    border-bottom: none;
+    height: 50px;
+    line-height: 50px;
+    font-size: 1.4em;
+    display: inline-block;
+    margin-right: -4px;
+ }
+
+ 
+
+.nav a 
+{
+	text-decoration: none;
+	color: #fff;
+	display: block;
+
+}
+
+.nav a:hover
+{
+	background: #2f3036;
+}
+
+.nav a.active 
+{
+  background-color: #53555f;
+  color: white;
+}
+
+table 
+{ 
+  width: 100%; 
+  border-collapse: collapse; 
+}
+
+tr:nth-of-type(odd) 
+{ 
+  background: #211E1E; 
+}
+th 
+{ 
+  background: #2F3036; 
+  color: white; 
+  font-weight: bold; 
+}
+td, th 
+{ 
+  padding: 6px; 
+  border: 1px solid #ccc; 
+  text-align: left; 
+}
+
+img.homeImg
+{
+    width:100%;
+    min-width:300px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 30px;
+}
+
+
+
+
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  
+{
+    .nav li 
+    {
+     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+     line-height: 40px;
+     height: 50px;
+     color: #fff;
+     background: #211E1E;
+     border-bottom: none;
+     text-decoration: none;
+    }
 }
