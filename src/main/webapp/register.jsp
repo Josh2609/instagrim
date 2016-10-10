@@ -26,11 +26,24 @@
        
         <article>
             <h3>Register as user</h3>
+            
+             <% String msg = (String)request.getAttribute("Message");
+               if(msg != null) { %>
+            <p id="flash_message"><%= msg %></p>
+            <% } %>
+            
             <form method="POST"  action="Register">
                 <ul>
-                    <li>User Name <input type="text" name="username"></li>
-                    <li>Password <input type="password" name="password"></li>
-                    <li>Repeat Password <input type="password" name="repeatPassword"></li>
+                    <li>User Name <input type="text" name="username" required="true"
+                            <% String usrnme = (String)request.getAttribute("username");
+                                if(usrnme != null)%>
+                                    value=<%= usrnme %>
+                        ></li>
+                    <li>First Name <input type="text" name="firstName" required="false"></li>
+                    <li>Last Name <input type="text" name="lastName" required="false"></li>
+                    <li>Email <input type="email" name="email" required="true"></li>
+                    <li>Password <input type="password" name="password" required="true"></li>
+                    <li>Repeat Password <input type="password" name="repeatPassword" required="true"></li>
                 </ul>
                 <br/>
                 <input type="submit" value="Register"> 

@@ -49,6 +49,27 @@ public class Register extends HttpServlet {
         String password=request.getParameter("password");
         String repeatPassword = request.getParameter("repeatPassword");
         
+        for(int i=0; i<username.length(); i++) 
+        {
+            char c = username.charAt(i);
+            if(!(c >= '0' && c <= '9') && !(c >= 'a' && c <= 'z') && !(c >= 'A' && c <= 'Z'))
+            {
+            RequestDispatcher rd = request.getRequestDispatcher("/register.jsp");
+            request.setAttribute("Message", "Username can only contain upper and lower case characters and numbers");
+            rd.forward(request, response);
+            return;
+            }
+        }
+        
+        if (!(password.equals(repeatPassword)))
+        {
+            RequestDispatcher rd = request.getRequestDispatcher("/register.jsp");
+            request.setAttribute("Message", "Passwords do not match");
+            request.setAttribute("username", username);
+            rd.forward(request, response);
+            return;
+        }
+        
         if(password.equals(repeatPassword))
         {
             if(username.length() >= 4 && password.length() >= 6)
