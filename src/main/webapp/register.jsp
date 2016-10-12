@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,8 +24,22 @@
             <ul>
                 
                 <li><a href="/Instagrim">Home</a></li>
+                  <li><a href="upload.jsp">Upload</a></li>
+                    <%
+                        
+                        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                        if (lg != null) {
+                            String UserName = lg.getUsername();
+                            if (lg.getlogedin()) {
+                    %>
+
+                    <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Images</a></li>
+                     <%}
+                               }else{
+                              %>
+                    <li><a class="active" href="register.jsp">Register</a></li>
                 <li><a href="login.jsp">Login</a></li>
-                <li><a href="/Instagrim/Images/majed">Samples</a></li>
+                 <%  }%>
             </ul>
         </div>
        
