@@ -10,7 +10,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8"/>
         <title>Instagrim</title>
         <link rel="stylesheet" type="text/css" href="Styles.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -34,7 +33,16 @@
 			if (lg.getlogedin()) {
 			%>
 			    <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Images</a></li>
-			    <li><a href="profile.jsp">My Profile</a></li>
+			    <%
+                    if (lg != null) 
+		    {
+			UserName = lg.getUsername();
+			if (lg.getlogedin()) 
+			{ %>
+			    <li><a href="profile.jsp"><%=UserName%></a></li>
+			<%}
+                    } 
+		%>
 			<%}
                         }else{
                         %>
