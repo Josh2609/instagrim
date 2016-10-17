@@ -45,8 +45,12 @@ public class Register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String username=request.getParameter("username");
         String password=request.getParameter("password");
+        String firstName=request.getParameter("firstName");
+        String lastName=request.getParameter("lastName");
+        String email=request.getParameter("email");
         String repeatPassword = request.getParameter("repeatPassword");
         
         for(int i=0; i<username.length(); i++) 
@@ -70,32 +74,21 @@ public class Register extends HttpServlet {
             return;
         }
         
-        if(password.equals(repeatPassword))
-        {
-            if(username.length() >= 4 && password.length() >= 6)
-            {
-                User us=new User();
-                us.setCluster(cluster);
+        User us=new User();
+        us.setCluster(cluster);
              
-                if (us.RegisterUser(username, password))
-                {
-                    response.sendRedirect("/Instagrim");
-                }
-                else
-                {
-                   response.sendRedirect("usernameExists.jsp"); 
-                }
-            }
-            else
-            {
-                // response.sendRedirect("errorUserPassLength.jsp");
-                response.sendRedirect("namePassTooShort.jsp");
-            }
-        }
-        else
+        if (us.RegisterUser(username, password, firstName, lastName, email))
         {
-            // response.sendRedirect("errorPasswordsNotMatch.jsp");
-            response.sendRedirect("passDoesntMatch.jsp");
+            response.sendRedirect("/Instagrim");
+        } else {
+            RequestDispatcher rd = request.getRequestDispatcher("/register.jsp");
+            request.setAttribute("Message", "Username already taken");
+            request.setAttribute("username", username);
+            request.setAttribute("firstName", firstName);
+            request.setAttribute("lastName", lastName);
+            request.setAttribute("email", email);
+            rd.forward(request, response);
+            return;
         }
         
         //User us=new User();

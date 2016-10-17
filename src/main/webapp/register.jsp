@@ -55,13 +55,36 @@
                 <ul>
                     <li>User Name <input type="text" name="username" required="true"
                             <% String usrnme = (String)request.getAttribute("username");
-                                if(usrnme != null)%>
-                                    value=<%= usrnme%>
-     
-                        ></li>
-                    <li>First Name <input type="text" name="firstName" required="false"></li>
-                    <li>Last Name <input type="text" name="lastName" required="false"></li>
-                    <li>Email <input type="email" name="email" required="true"></li>
+                            if(usrnme != null) { %>
+                                value=<%= usrnme%>
+                            <%} else {%>
+                                value=<%= ""%>
+                            <% } %>
+                    ></li>
+                    <li>First Name <input type="text" name="firstName" required="false"
+                            <% String frstnme = (String)request.getAttribute("firstName");
+                            if(frstnme != null) { %>
+                                value=<%= frstnme%>
+                            <%} else {%>
+                                value=<%= ""%>
+                            <% } %>
+                    ></li>
+                    <li>Last Name <input type="text" name="lastName" required="false"
+                    <% String lstnme = (String)request.getAttribute("lastName");
+                            if(lstnme != null) { %>
+                                value=<%= lstnme%>
+                            <%} else {%>
+                                value=<%= ""%>
+                            <% } %>
+                    ></li>
+                    <li>Email <input type="email" name="email" required="true"
+                    <% String eml = (String)request.getAttribute("email");
+                            if(eml != null) { %>
+                                value=<%= eml%>
+                            <%} else {%>
+                                value=<%= ""%>
+                            <% } %>
+                    ></li>
                     <li>Password <input type="password" name="password" required="true"></li>
                     <li>Repeat Password <input type="password" name="repeatPassword" required="true"></li>
                 </ul>
