@@ -40,7 +40,11 @@
 			if (lg.getlogedin()) 
 			{ %>
 			    <li><a href="${pageContext.request.contextPath}/Profile/<%=lg.getUsername()%>"><%=UserName%></a></li>
-			<%}
+                            <form action="${pageContext.request.contextPath}/Search" method="POST">
+                                <input type="text" placeholder="Search" name="searchQuery">
+                                <input type="submit" value="Submit">
+                            </form>
+                        <%}
                     } 
 		%>
 			<%}
