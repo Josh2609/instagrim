@@ -32,7 +32,7 @@
                             String UserName = lg.getUsername();
 			if (lg.getlogedin()) {
 			%>
-			    <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Images</a></li>
+			    <li><a href="${pageContext.request.contextPath}/Images/<%=lg.getUsername()%>">Images</a></li>
 			    <%
                     if (lg != null) 
 		    {

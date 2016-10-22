@@ -23,18 +23,20 @@
             <div class="nav">
             <ul>
                <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");%>
-               <li><a href="/Instagrim">Home</a></li>
-                <li><a href="upload.jsp">Upload</a></li>
-		<li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Images</a></li>
+               <li><a href="${pageContext.request.contextPath}">Home</a></li>
+                <li><a href="${pageContext.request.contextPath}/upload.jsp">Upload</a></li>
+		<li><a href="${pageContext.request.contextPath}/Images/<%=lg.getUsername()%>">Images</a></li>
 		<%
+                    String profileToGet = (String)request.getAttribute("profileToGet");
                     if (lg != null) 
 		    {
-			String UserName = lg.getUsername();
-			if (lg.getlogedin()) 
+			if (lg.getUsername().equals(profileToGet)) 
 			{ %>
-			    <li><a class="active" href="profile.jsp"><%=UserName%></a></li>
-			<%}
-                    } 
+			    <li><a class="active" href="${pageContext.request.contextPath}/Profile/<%=lg.getUsername()%>"><%=lg.getUsername()%></a></li>
+			<%} else { %>
+			    <li><a href="profile.jsp"><%=lg.getUsername()%></a></li>
+			<% }
+                    }
 		%>
             </ul>
 	    </div>
@@ -47,7 +49,15 @@
                 <li><a href="#">Images</a></li>
                 <li><a href="#">Following</a></li>
                 <li><a href="#">Followers</a></li>
-                <li><a href="${pageContext.request.contextPath}/editProfile.jsp">Edit Profile</a></li>		
+                <%
+                    if (lg != null) 
+		    {
+			if (lg.getUsername().equals(profileToGet))               // Change address for EditProfile **EDIT**
+			{ %>
+			    <li><a href="${pageContext.request.contextPath}/EditProfile/">Edit Profile</a></li>
+			<%}
+                    } 
+		%>  	
             </ul>
                  
             <div id="profileOutline">

@@ -50,20 +50,22 @@ public class Profile extends HttpServlet {
         User user = new User();
         user.setCluster(cluster);
         String args[] = Convertors.SplitRequestPath(request);
+        String profileToGet = args[2];
+        request.setAttribute("profileToGet", profileToGet);   
         HttpSession session = request.getSession();
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         ProfileBean profile = new ProfileBean();
         
-        if(!lg.getlogedin())
-        {
-            RequestDispatcher rd = request.getRequestDispatcher("/Login");
-            request.setAttribute("Message", "not Logged In");
-            rd.forward(request, response);
-            return;
-        } else {
+//        if(!lg.getlogedin())
+//        {
+//            RequestDispatcher rd = request.getRequestDispatcher("/Login");
+//            request.setAttribute("Message", "not Logged In");
+//            rd.forward(request, response);
+//            return;
+//        } else {
 
             try {
-                profile = user.getUserProfile(profile, lg.getUsername());
+                profile = user.getUserProfile(profile, profileToGet);
             } catch (Exception ex) {
                 Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -71,7 +73,7 @@ public class Profile extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
                 rd.forward(request, response);
 
-        }
+        //}
         
     }
     
