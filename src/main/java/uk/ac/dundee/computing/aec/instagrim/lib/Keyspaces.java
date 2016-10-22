@@ -36,6 +36,22 @@ public final class Keyspaces {
                     + "pic_added timestamp,\n"
                     + "PRIMARY KEY (user,pic_added)\n"
                     + ") WITH CLUSTERING ORDER BY (pic_added desc);";
+                String CreatePostTable = "CREAT TABLE if not exists instagrim.Posts ("
+                    + " user varchar,"
+                    + " postid uuid, "
+                    + " interaction_time timestamp,"
+                    + " contents varchar,"
+                    + " processedlength int,"
+                    + " type  varchar,"
+                    + " name  varchar,"
+                    + " PRIMARY KEY (postid)"
+                    + ")";
+            String CreateUserPostList = "CREAT TABLE if not exists instagrim.userpostlist ( \n"
+                    + "postid uuid, \n"
+                    + "user varchar, \n"
+                    + "post_added timestamp, \n"
+                    + "PRIMARY KEY (user, post_added, \n"
+                    + ") WITH CLUSTORING ORDER BY (post_added desc);";
             String CreateAddressType = "CREATE TYPE if not exists instagrim.address (\n"
                     + "      street text,\n"
                     + "      city text,\n"

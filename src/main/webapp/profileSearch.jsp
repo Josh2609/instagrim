@@ -25,7 +25,7 @@
                <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");%>
                <li><a href="/Instagrim">Home</a></li>
                 <li><a href="upload.jsp">Upload</a></li>
-		<li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Images</a></li>
+		<li><a href="/Instagrim/Images/">Images</a></li>
 		<%
                     if (lg != null) 
 		    {
@@ -46,8 +46,7 @@
                 <li><a href="/Instagrim">Posts</a></li>
                 <li><a href="#">Images</a></li>
                 <li><a href="#">Following</a></li>
-                <li><a href="#">Followers</a></li>
-                <li><a href="${pageContext.request.contextPath}/editProfile.jsp">Edit Profile</a></li>		
+                <li><a href="#">Followers</a></li>		
             </ul>
                  
             <div id="profileOutline">
@@ -73,8 +72,10 @@
                     username = "Not Logged In";
                 }
                 %>
+               
+            
                     <h1 style="color: white"><%=username%></h1>
-                    <p class="bio"><span>User Name</span> <%=lg.getUsername() %></p>
+                    <p class="bio"><span>User Name</span> <%=username %></p>
                     
                     <p class="bio"><span>Email Address</span><%=email %></p>
                     <p class="bio"><span>First Name</span><%=firstName %></p>
@@ -82,6 +83,11 @@
                     <p class="bio"></p>
                 </div>
             </div>
+            <% String msg = (String)request.getAttribute("Message");
+               if(msg != null) { %>
+            <p style="color: white" id="flash_message"><%= msg %></p>
+            <% } %>
+            
              
             
   

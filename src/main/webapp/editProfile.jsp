@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Styles.css" />
-        <title>Instagrim</title>
+        <title>Edit Profile</title>
     </head>
      <body>
 
@@ -42,12 +42,12 @@
             <br>
              <div class="nav">
             <ul>
-                <li><a class ="active" href="">Bio</a></li>
+                <li><a href="">Bio</a></li>
                 <li><a href="/Instagrim">Posts</a></li>
                 <li><a href="#">Images</a></li>
                 <li><a href="#">Following</a></li>
                 <li><a href="#">Followers</a></li>
-                <li><a href="${pageContext.request.contextPath}/editProfile.jsp">Edit Profile</a></li>		
+                <li><a class="active" href="">Edit Profile</a></li>		
             </ul>
                  
             <div id="profileOutline">

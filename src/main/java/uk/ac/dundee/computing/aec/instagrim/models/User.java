@@ -16,6 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
+import uk.ac.dundee.computing.aec.instagrim.stores.ProfileBean;
 
 /**
  *
@@ -27,7 +28,7 @@ public class User {
         
     }
     
-    public boolean RegisterUser(String username, String Password, String first_name, String last_name, String email){
+    public boolean RegisterUser(String username, String Password, ProfileBean profile){
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         String EncodedPassword=null;
         try {
@@ -52,7 +53,7 @@ public class User {
             boundStatement = new BoundStatement(ps);
             rs = session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        username,EncodedPassword,first_name,last_name,email));
+                        username,EncodedPassword,profile.getFirstName(),profile.getLastName(),profile.getEmail()));
             return true;
         } else {
             return false;
@@ -86,11 +87,30 @@ public class User {
                     return true;
             }
         }
-   
+        
     
     return false;  
     }
-       public void setCluster(Cluster cluster) {
+    
+    public ProfileBean getUserProfile(ProfileBean profile, String user) throws Exception
+    {
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("select * from userprofiles where login=?");
+        
+        ResultSet rs = null;
+        
+        BoundStatement bs = new BoundStatement(ps);
+        rs = session.execute(bs.bind(user));
+        Row row = rs.one(); //**EDIT**//
+        //set values from returned data
+        profile.setUsername(row.getString("login"));
+        profile.setFirstName(row.getString("first_name"));
+        profile.setLastName(row.getString("last_name"));
+        profile.setEmail(row.getString("email"));
+        return profile;
+    }
+    
+    public void setCluster(Cluster cluster) {
         this.cluster = cluster;
     }
 

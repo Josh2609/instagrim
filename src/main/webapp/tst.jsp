@@ -1,12 +1,11 @@
 <%-- 
-    Document   : UsersPics
-    Created on : Sep 24, 2014, 2:52:48 PM
-    Author     : Administrator
+    Document   : profile
+    Created on : 10-Oct-2016, 21:07:52
+    Author     : Josh
 --%>
-
 <%@page import="java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,10 +15,16 @@
 	<link rel="stylesheet "href="css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Styles.css" />
         <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-        <title>Instagrim</title>
-        <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
+	<%
+            LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+            if (lg != null) 
+	    {
+		String UserName = lg.getUsername();
+		if (lg.getlogedin()) %>
+		    <title> Instagrim: <%=UserName + "'s Profile" %></title>
+	    <% } %>		
     </head>
-     <body>
+    <body>
 
         <div class="pagesize">
         <header>
@@ -28,7 +33,7 @@
             
             <div class="nav">
             <ul>
-               <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");%>
+
                <li><a href="/Instagrim">Home</a></li>
                 <li><a href="upload.jsp">Upload</a></li>
 		<li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Images</a></li>
@@ -48,7 +53,7 @@
   
   <div id="profileOutline">
     <div id="content" class="clearfix">
-      <div id="userphoto"><img src="../images/avatar.png" alt="default avatar"></div>
+      <div id="userphoto"><img src="images/avatar.png" alt="default avatar"></div>
       <h1 style="color: black">Josh</h1>
 
       <nav id="profiletabs">
@@ -76,7 +81,7 @@
                 Pic p = (Pic) iterator.next();
 
         %>
-        <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img style="max-width: 50%" src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/><%
+        <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/><%
 
             }
             }
@@ -102,42 +107,24 @@
         <p>Friends list:</p>
         
         <ul id="friendslist" class="clearfix">
-          <li><a href="#"><img src="../images/avatar.png" width="22" height="22"> Username</a></li>
-          <li><a href="#"><img src="../images/avatar.png" width="22" height="22"> SomeGuy123</a></li>
-          <li><a href="#"><img src="../images/avatar.png" width="22" height="22"> PurpleGiraffe</a></li>
+          <li><a href="#"><img src="images/avatar.png" width="22" height="22"> Username</a></li>
+          <li><a href="#"><img src="images/avatar.png" width="22" height="22"> SomeGuy123</a></li>
+          <li><a href="#"><img src="images/avatar.png" width="22" height="22"> PurpleGiraffe</a></li>
         </ul>
       </section>
       
       <section id="settings" class="hidden">
         <p>Edit your user settings:</p>
-        <%
-            String username = "";
-            String firstName = "";
-            String lastName = "";
-            String email = "";
-                
-            ProfileBean profile = new ProfileBean();
-                profile = (ProfileBean) request.getAttribute("ProfileBean");
-                if (profile != null) {
-                    username = profile.getUsername();
-                    firstName = profile.getFirstName();
-                    lastName = profile.getLastName();
-                    email = profile.getEmail();
-                }
-                else {
-                    username = "Not Logged In";
-                }
-                %>
-                
-        <p class="setting"><span>User Name <img src="../images/edit.png" alt="*Edit*"></span> <%=lg.getUsername() %></p>
         
-        <p class="setting"><span>Email Address <img src="../images/edit.png" alt="*Edit*"></span><%=email %></p>
+        <p class="setting"><span>E-mail Address <img src="images/edit.png" alt="*Edit*"></span> lolno@gmail.com</p>
         
-        <p class="setting"><span>Profile Status <img src="../images/edit.png" alt="*Edit*"></span> Public</p>
+        <p class="setting"><span>Language <img src="images/edit.png" alt="*Edit*"></span> English(US)</p>
         
-        <p class="setting"><span>Update Frequency <img src="../images/edit.png" alt="*Edit*"></span> Weekly</p>
+        <p class="setting"><span>Profile Status <img src="images/edit.png" alt="*Edit*"></span> Public</p>
         
-        <p class="setting"><span>Connected Accounts <img src="../images/edit.png" alt="*Edit*"></span> None</p>
+        <p class="setting"><span>Update Frequency <img src="images/edit.png" alt="*Edit*"></span> Weekly</p>
+        
+        <p class="setting"><span>Connected Accounts <img src="images/edit.png" alt="*Edit*"></span> None</p>
       </section>
     </div><!-- @end #content -->
   </div><!-- @end #w -->
@@ -160,5 +147,4 @@ $(function(){
 </script>
 </div> <!-- class="pageSize"-->
 </body>
-    </body>
 </html>

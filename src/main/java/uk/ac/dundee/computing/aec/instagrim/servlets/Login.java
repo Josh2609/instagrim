@@ -37,6 +37,14 @@ public class Login extends HttpServlet {
         cluster = CassandraHosts.getCluster();
     }
 
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        
+       RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+       rd.forward(request, response);
+    }
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -52,6 +60,13 @@ public class Login extends HttpServlet {
         String username=request.getParameter("username");
         String password=request.getParameter("password");
         
+        if (username.equals("") || password.equals(""))
+        {
+            RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
+            request.setAttribute("Message", "Username or password cannot be empty");
+            rd.forward(request, response);
+            return;
+        }
         
         User us=new User();
         us.setCluster(cluster);
@@ -70,7 +85,10 @@ public class Login extends HttpServlet {
 	    rd.forward(request,response);
             
         }else{
-            response.sendRedirect("/Instagrim/noAccount.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
+            request.setAttribute("Message", "Username or password incorrect.");
+            rd.forward(request, response);
+            return;
         }
         
     }
