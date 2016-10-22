@@ -73,6 +73,8 @@ public class Image extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
         String args[] = Convertors.SplitRequestPath(request);
+        String profileToGet = args[2];
+        request.setAttribute("profileToGet", profileToGet);  
         int command;
         try {
             command = (Integer) CommandsMap.get(args[1]);

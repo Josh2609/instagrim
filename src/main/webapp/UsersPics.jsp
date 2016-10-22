@@ -26,43 +26,59 @@
             <h1>InstaGrim ! </h1>
             <h2>Your world in Black and White</h2>
             
-            <div class="nav">
+           <div class="nav">
             <ul>
                <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");%>
-               <li><a href="/Instagrim">Home</a></li>
-                <li><a href="upload.jsp">Upload</a></li>
-		<li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Images</a></li>
+               <li><a href="${pageContext.request.contextPath}">Home</a></li>
+                <li><a href="${pageContext.request.contextPath}/upload.jsp">Upload</a></li>
+		<li><a href="${pageContext.request.contextPath}/Images/<%=lg.getUsername()%>">Images</a></li>
 		<%
+                    String profileToGet = (String)request.getAttribute("profileToGet");
                     if (lg != null) 
 		    {
-			String UserName = lg.getUsername();
-			if (lg.getlogedin()) 
+			if (lg.getUsername().equals(profileToGet)) 
 			{ %>
-			    <li><a class="active" href="profile.jsp"><%=UserName%></a></li>
-			<%}
-                    } 
+			    <li><a class="active" href="${pageContext.request.contextPath}/Profile/<%=lg.getUsername()%>"><%=lg.getUsername()%></a></li>
+			<%} else { %>
+			    <li><a href="${pageContext.request.contextPath}/Profile/<%=lg.getUsername()%>"><%=lg.getUsername()%></a></li>
+			<% }
+                    }
 		%>
             </ul>
 	    </div>
         </header>
-  
+            <br>
+             <div class="nav">
+             <ul>
+                <li><a href="${pageContext.request.contextPath}/Profile/<%=profileToGet%>">Bio</a></li>
+                <li><a href="#">Posts</a></li>
+                <li><a class="active "href="${pageContext.request.contextPath}/Images/<%=profileToGet%>">Images</a></li>
+                <li><a href="#">Following</a></li>
+                <li><a href="#">Followers</a></li>
+                <%
+                    if (lg != null) 
+		    {
+			if (lg.getUsername().equals(profileToGet))               // Change address for EditProfile **EDIT**
+			{ %>
+			    <li><a href="${pageContext.request.contextPath}/EditProfile/">Edit Profile</a></li>
+			<%}
+                    } 
+		%>  	
+            </ul>
+             </div>
+            
   <div id="profileOutline">
     <div id="content" class="clearfix">
       <div id="userphoto"><img src="../images/avatar.png" alt="default avatar"></div>
-      <h1 style="color: black">Josh</h1>
-
-      <nav id="profiletabs">
-        <ul class="clearfix">
-          <li><a href="#pictures">Pictures</a></li>
-          <li><a href="#activity" class="sel">Activity</a></li>
-          <li><a href="#friends">Friends</a></li>
-          <li><a href="#settings">Settings</a></li>
-        </ul>
-      </nav>
+      <h1><%=profileToGet%></h1>
       
-      <section id="pictures" class="hidden">
        <article>
-            <h1>Your Pics</h1>
+           <% if (lg.getUsername().equals(profileToGet))               // Change address for EditProfile **EDIT**
+		{ %>
+                    <h1>Your Pics</h1>
+		<%} else {%>  	
+                    <h1><%=profileToGet%>'s Pics</h1>
+                <%}%>  
         <%
             java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
             if (lsPics == null) {
@@ -81,83 +97,11 @@
             }
             }
         %>
-        </article>
-      </section>
-      
-      <section id="activity">
-        <p>Most recent actions:</p>
-        
-        <p class="activity">@10:15PM - Submitted a news article</p>
-        
-        <p class="activity">@9:50PM - Submitted a news article</p>
-        
-        <p class="activity">@8:15PM - Posted a comment</p>
-        
-        <p class="activity">@4:30PM - Added <strong>someusername</strong> as a friend</p>
-        
-        <p class="activity">@12:30PM - Submitted a news article</p>
-      </section>
-      
-      <section id="friends" class="hidden">
-        <p>Friends list:</p>
-        
-        <ul id="friendslist" class="clearfix">
-          <li><a href="#"><img src="../images/avatar.png" width="22" height="22"> Username</a></li>
-          <li><a href="#"><img src="../images/avatar.png" width="22" height="22"> SomeGuy123</a></li>
-          <li><a href="#"><img src="../images/avatar.png" width="22" height="22"> PurpleGiraffe</a></li>
-        </ul>
-      </section>
-      
-      <section id="settings" class="hidden">
-        <p>Edit your user settings:</p>
-        <%
-            String username = "";
-            String firstName = "";
-            String lastName = "";
-            String email = "";
-                
-            ProfileBean profile = new ProfileBean();
-                profile = (ProfileBean) request.getAttribute("ProfileBean");
-                if (profile != null) {
-                    username = profile.getUsername();
-                    firstName = profile.getFirstName();
-                    lastName = profile.getLastName();
-                    email = profile.getEmail();
-                }
-                else {
-                    username = "Not Logged In";
-                }
-                %>
-                
-        <p class="setting"><span>User Name <img src="../images/edit.png" alt="*Edit*"></span> <%=lg.getUsername() %></p>
-        
-        <p class="setting"><span>Email Address <img src="../images/edit.png" alt="*Edit*"></span><%=email %></p>
-        
-        <p class="setting"><span>Profile Status <img src="../images/edit.png" alt="*Edit*"></span> Public</p>
-        
-        <p class="setting"><span>Update Frequency <img src="../images/edit.png" alt="*Edit*"></span> Weekly</p>
-        
-        <p class="setting"><span>Connected Accounts <img src="../images/edit.png" alt="*Edit*"></span> None</p>
-      </section>
+        </article>            
+    
     </div><!-- @end #content -->
   </div><!-- @end #w -->
-<script type="text/javascript">
-$(function(){
-  $('#profiletabs ul li a').on('click', function(e){
-    e.preventDefault();
-    var newcontent = $(this).attr('href');
-    
-    $('#profiletabs ul li a').removeClass('sel');
-    $(this).addClass('sel');
-    
-    $('#content section').each(function(){
-      if(!$(this).hasClass('hidden')) { $(this).addClass('hidden'); }
-    });
-    
-    $(newcontent).removeClass('hidden');
-  });
-});
-</script>
+
 </div> <!-- class="pageSize"-->
 </body>
     </body>

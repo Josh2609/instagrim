@@ -55,7 +55,7 @@
         </header>
        
             <div class="text">
-       <img src="BAndWSkyline.jpg" class="homeImg" alt="Black and White Skyline"/>
+       <img src="${pageContext.request.contextPath}/images/BAndWSkyline.jpg" class="homeImg" alt="Black and White Skyline"/>
                 
             </div>
         

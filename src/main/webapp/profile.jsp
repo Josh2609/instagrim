@@ -34,7 +34,7 @@
 			{ %>
 			    <li><a class="active" href="${pageContext.request.contextPath}/Profile/<%=lg.getUsername()%>"><%=lg.getUsername()%></a></li>
 			<%} else { %>
-			    <li><a href="profile.jsp"><%=lg.getUsername()%></a></li>
+			    <li><a href="${pageContext.request.contextPath}/Profile/<%=lg.getUsername()%>"><%=lg.getUsername()%></a></li>
 			<% }
                     }
 		%>
@@ -44,9 +44,9 @@
             <br>
              <div class="nav">
             <ul>
-                <li><a class ="active" href="">Bio</a></li>
-                <li><a href="/Instagrim">Posts</a></li>
-                <li><a href="#">Images</a></li>
+                <li><a class ="active" href="${pageContext.request.contextPath}/Profile/<%=profileToGet%>">Bio</a></li>
+                <li><a href="#">Posts</a></li>
+                <li><a href="${pageContext.request.contextPath}/Images/<%=profileToGet%>">Images</a></li>
                 <li><a href="#">Following</a></li>
                 <li><a href="#">Followers</a></li>
                 <%
@@ -59,6 +59,7 @@
                     } 
 		%>  	
             </ul>
+             </div>
                  
             <div id="profileOutline">
                 <div id="content" class="clearfix">
