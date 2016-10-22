@@ -51,8 +51,8 @@
              <div class="nav">
              <ul>
                 <li><a href="${pageContext.request.contextPath}/Profile/<%=profileToGet%>">Bio</a></li>
-                <li><a href="#">Posts</a></li>
-                <li><a class="active "href="${pageContext.request.contextPath}/Images/<%=profileToGet%>">Images</a></li>
+                <li><a href="${pageContext.request.contextPath}/Posts/<%=profileToGet%>">Posts</a></li>
+                <li><a class="active" href="${pageContext.request.contextPath}/Images/<%=profileToGet%>">Images</a></li>
                 <li><a href="#">Following</a></li>
                 <li><a href="#">Followers</a></li>
                 <%

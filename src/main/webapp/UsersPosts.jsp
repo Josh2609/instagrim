@@ -1,8 +1,9 @@
 <%-- 
-    Document   : profile
-    Created on : 10-Oct-2016, 21:07:52
-    Author     : Josh
+    Document   : UsersPics
+    Created on : Sep 24, 2014, 2:52:48 PM
+    Author     : Administrator
 --%>
+
 <%@page import="java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
@@ -20,7 +21,7 @@
             <h1>InstaGrim ! </h1>
             <h2>Your world in Black and White</h2>
             
-            <div class="nav">
+           <div class="nav">
             <ul>
                <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");%>
                <li><a href="${pageContext.request.contextPath}">Home</a></li>
@@ -43,9 +44,9 @@
         </header>
             <br>
              <div class="nav">
-            <ul>
-                <li><a class ="active" href="${pageContext.request.contextPath}/Profile/<%=profileToGet%>">Bio</a></li>
-                <li><a href="${pageContext.request.contextPath}/Posts/<%=profileToGet%>">Posts</a></li>
+             <ul>
+                <li><a href="${pageContext.request.contextPath}/Profile/<%=profileToGet%>">Bio</a></li>
+                <li><a class="active" href="${pageContext.request.contextPath}/Posts/<%=profileToGet%>">Posts</a></li>
                 <li><a href="${pageContext.request.contextPath}/Images/<%=profileToGet%>">Images</a></li>
                 <li><a href="#">Following</a></li>
                 <li><a href="#">Followers</a></li>
@@ -60,41 +61,44 @@
 		%>  	
             </ul>
              </div>
-                 
-            <div id="profileOutline">
-                <div id="content" class="clearfix">
-                    <div id="userphoto"><img src="../images/avatar.png" alt="default avatar"></div>
-                    
-                    
-                    <%
-            String username = "";
-            String firstName = "";
-            String lastName = "";
-            String email = "";
-                
-            ProfileBean profile = new ProfileBean();
-                profile = (ProfileBean) request.getAttribute("ProfileBean");
-                if (profile != null) {
-                    username = profile.getUsername();
-                    firstName = profile.getFirstName();
-                    lastName = profile.getLastName();
-                    email = profile.getEmail();
-                }
-                else {
-                    username = "Not Logged In";
-                }
-                %>
-                    <h1 style="color: white"><%=username%></h1>
-                    <p class="bio"><span>User Name</span> <%=username%></p>
-                    <p class="bio"><span>Email Address</span><%=email %></p>
-                    <p class="bio"><span>First Name</span><%=firstName %></p>
-                    <p class="bio"><span>Last Name</span><%=lastName %></p>
-                    <p class="bio"></p>
-                </div>
-            </div>
-             
             
-  
+  <div id="profileOutline">
+    <div id="content" class="clearfix">
+      <div id="userphoto"><img src="../images/avatar.png" alt="default avatar"></div>
+      <h1><%=profileToGet%></h1>
+      
+       <article>
+           <% if (lg.getUsername().equals(profileToGet))               // Change address for EditProfile **EDIT**
+		{ %>
+                    <h1>Your Posts</h1>
+		<%} else {%>  	
+                    <h1><%=profileToGet%>'s Posts</h1>
+                <%}%>  
+        <%
+            java.util.LinkedList<PostBean> lsPosts = (java.util.LinkedList<PostBean>) request.getAttribute("Posts");
+            if (lsPosts == null) {
+        %>
+        <p>No Posts found</p>
+        <%
+        } else {
+            Iterator<PostBean> iterator;
+            iterator = lsPosts.iterator();
+            while (iterator.hasNext()) {
+                PostBean pb = (PostBean) iterator.next();
+
+        %>
+        
+        <p style="color: white"><%=pb.getPost()%></p>
+        <%
+
+            }
+            }
+        %>
+        </article>            
+    
+    </div><!-- @end #content -->
+  </div><!-- @end #w -->
+
 </div> <!-- class="pageSize"-->
 </body>
     </body>

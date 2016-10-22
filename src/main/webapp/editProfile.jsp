@@ -43,7 +43,7 @@
              <div class="nav">
             <ul>
                 <li><a href="${pageContext.request.contextPath}/Profile/<%=lg.getUsername()%>">Bio</a></li>
-                <li><a href="#">Posts</a></li>
+                <li><a href="${pageContext.request.contextPath}/Posts/<%=lg.getUsername()%>">Posts</a></li>
                 <li><a href="${pageContext.request.contextPath}/Images/<%=lg.getUsername()%>">Images</a></li>
                 <li><a href="#">Following</a></li>
                 <li><a href="#">Followers</a></li>

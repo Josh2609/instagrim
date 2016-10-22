@@ -131,6 +131,16 @@ public class User {
         return true;
     }
     
+    public void getProfilePicture()
+    {
+        
+    }
+    
+    public void setProfilePicture()
+    {
+        
+    }
+    
     public void setCluster(Cluster cluster) {
         this.cluster = cluster;
     }
