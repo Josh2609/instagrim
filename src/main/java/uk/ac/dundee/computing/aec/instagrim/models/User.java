@@ -110,6 +110,27 @@ public class User {
         return profile;
     }
     
+    public boolean editProfile(String username, String email, String firstName, String lastName)
+    {
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps;
+        BoundStatement bs;
+                
+        ps = session.prepare("update userprofiles set email=? WHERE login=?");
+        bs = new BoundStatement(ps);
+        session.execute(bs.bind(email, username));
+        
+        ps = session.prepare("update userprofiles set first_name=? WHERE login=?");
+        bs = new BoundStatement(ps);
+        session.execute(bs.bind(firstName, username));
+        
+        ps = session.prepare("update userprofiles set last_name=? WHERE login=?");
+        bs = new BoundStatement(ps);
+        session.execute(bs.bind(lastName, username));
+        
+        return true;
+    }
+    
     public void setCluster(Cluster cluster) {
         this.cluster = cluster;
     }

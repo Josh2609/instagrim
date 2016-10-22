@@ -23,9 +23,9 @@
             <div class="nav">
             <ul>
                <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");%>
-               <li><a href="/Instagrim">Home</a></li>
-                <li><a href="upload.jsp">Upload</a></li>
-		<li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Images</a></li>
+               <li><a href="${pageContext.request.contextPath}/">Home</a></li>
+                <li><a href="${pageContext.request.contextPath}/upload.jsp">Upload</a></li>
+		<li><a href="${pageContext.request.contextPath}/Images/<%=lg.getUsername()%>">Images</a></li>
 		<%
                     if (lg != null) 
 		    {
@@ -42,12 +42,12 @@
             <br>
              <div class="nav">
             <ul>
-                <li><a href="">Bio</a></li>
-                <li><a href="/Instagrim">Posts</a></li>
-                <li><a href="#">Images</a></li>
+                <li><a href="${pageContext.request.contextPath}/Profile/<%=lg.getUsername()%>">Bio</a></li>
+                <li><a href="#">Posts</a></li>
+                <li><a href="${pageContext.request.contextPath}/Images/<%=lg.getUsername()%>">Images</a></li>
                 <li><a href="#">Following</a></li>
                 <li><a href="#">Followers</a></li>
-                <li><a class="active" href="">Edit Profile</a></li>		
+                <li><a class="active" href="${pageContext.request.contextPath}/EditProfile/<%=lg.getUsername()%>">Edit Profile</a></li>		
             </ul>
                  
             <div id="profileOutline">
@@ -74,12 +74,21 @@
                 }
                 %>
                     <h1 style="color: white"><%=username%></h1>
-                    <p class="bio"><span>User Name</span> <%=lg.getUsername() %></p>
                     
-                    <p class="bio"><span>Email Address</span><%=email %></p>
-                    <p class="bio"><span>First Name</span><%=firstName %></p>
-                    <p class="bio"><span>Last Name</span><%=lastName %></p>
-                    <p class="bio"></p>
+                    <form method="POST"  action="EditProfile">
+                        <p class="bio"><span>User Name</span><input style="background: #AFAFAF; border-color: #AFAFAF" name="username" value="<%=username%>" type="text" readonly></p>
+                        <p class="bio"><span>Email Address</span><input name="email" value="<%=email%>" type="email" required></p>
+                        <p class="bio"><span>First Name</span><input name="firstName" value="<%=firstName%>" type="text"></p>
+                        <p class="bio"><span>Last Name</span><input name="lastName" value="<%=lastName%>" type="text" ></p>
+                        <p class="bio"></p>
+                        
+                        <% String msg = (String)request.getAttribute("Message");
+                        if(msg != null) { %>
+                            <p style="color: white" id="flash_message"><%= msg %></p>
+                        <% } %>
+                        
+                        <input type="submit" value="Submit"> 
+                    </form>
                 </div>
             </div>
              

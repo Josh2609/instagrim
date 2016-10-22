@@ -54,7 +54,7 @@
 		    {
 			if (lg.getUsername().equals(profileToGet))               // Change address for EditProfile **EDIT**
 			{ %>
-			    <li><a href="${pageContext.request.contextPath}/EditProfile/">Edit Profile</a></li>
+			    <li><a href="${pageContext.request.contextPath}/EditProfile/<%=profileToGet%>">Edit Profile</a></li>
 			<%}
                     } 
 		%>  	
@@ -85,8 +85,7 @@
                 }
                 %>
                     <h1 style="color: white"><%=username%></h1>
-                    <p class="bio"><span>User Name</span> <%=lg.getUsername() %></p>
-                    
+                    <p class="bio"><span>User Name</span> <%=username%></p>
                     <p class="bio"><span>Email Address</span><%=email %></p>
                     <p class="bio"><span>First Name</span><%=firstName %></p>
                     <p class="bio"><span>Last Name</span><%=lastName %></p>

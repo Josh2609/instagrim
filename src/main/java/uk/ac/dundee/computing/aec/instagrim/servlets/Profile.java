@@ -28,7 +28,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.ProfileBean;
 @WebServlet(name = "Profile", urlPatterns = 
         {
             "/Profile",
-            "/Profile/*"
+            "/Profile/*",
         })
 @MultipartConfig
 
