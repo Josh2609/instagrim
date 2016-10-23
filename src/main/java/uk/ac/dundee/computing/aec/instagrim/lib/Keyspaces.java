@@ -71,6 +71,17 @@ public final class Keyspaces {
                     + "      followed_date timestamp,\n"
                     + "PRIMARY KEY (followed_user, followed_by_user, relationshipid, followed_date)\n"
                     + ") WITH CLUSTERING ORDER BY (followed_by_user desc, relationshipid desc, followed_date desc);";
+            String CreateUserProfilePic = "CREATE TABLE if not exists instagrim.userprofilepic (\n"
+                    + " user varchar,\n"
+                    + " picid uuid,\n"
+                    + " image blob,\n"
+                    + " thumb blob,\n"
+                    + " imagelength int,\n"
+                    + " thumblength int,\n"
+                    + " type varchar,\n"
+                    + " name varchar,\n"
+                    + " PRIMARY KEY (user, picid)"
+                    + ") WITH CLUSTERING ORDER BY (picid desc);";    
             Session session = c.connect();
             try {
                 PreparedStatement statement = session

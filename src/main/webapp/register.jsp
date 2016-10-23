@@ -29,15 +29,15 @@
                         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
                         if (lg != null) {
                             String UserName = lg.getUsername();
-                            if (lg.getlogedin()) {
+                            if (lg.getloggedin()) {
                     %>
 
                     <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Images</a></li>
                      <%}
                                }else{
                               %>
-                    <li><a class="active" href="register.jsp">Register</a></li>
-                <li><a href="login.jsp">Login</a></li>
+                    <li><a class="active" href="${pageContext.request.contextPath}/Register">Register</a></li>
+                    <li><a href="${pageContext.request.contextPath}/Login">Login</a></li>
                  <%  }%>
             </ul>
         </div>
@@ -60,7 +60,7 @@
                                 value=<%= ""%>
                             <% } %>
                     ></li>
-                    <li>First Name <input type="text" name="firstName" required="false"
+                    <li>First Name <input type="text" name="firstName" required="trues"
                             <% String frstnme = (String)request.getAttribute("firstName");
                             if(frstnme != null) { %>
                                 value=<%= frstnme%>
@@ -68,7 +68,7 @@
                                 value=<%= ""%>
                             <% } %>
                     ></li>
-                    <li>Last Name <input type="text" name="lastName" required="false"
+                    <li>Last Name <input type="text" name="lastName" required="true"
                     <% String lstnme = (String)request.getAttribute("lastName");
                             if(lstnme != null) { %>
                                 value=<%= lstnme%>

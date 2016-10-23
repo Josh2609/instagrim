@@ -13,11 +13,11 @@ import java.util.UUID;
  * @author joshcorps
  */
 public class ImageCommentBean {
-    UUID commentID;
-    UUID picID;
-    String user;
-    String comment;
-    Date commentDate;
+    private UUID commentID;
+    private UUID picID;
+    private String user;
+    private String comment;
+    private Date commentDate;
     
     public ImageCommentBean (){
         commentID = null;

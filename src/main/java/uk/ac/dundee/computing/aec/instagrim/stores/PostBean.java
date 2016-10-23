@@ -13,13 +13,16 @@ import java.util.UUID;
  * @author joshcorps
  */
 public class PostBean {
-    UUID postID = null;
-    String user = "";
-    String post = "";
-    Date postDate = null;
+    private UUID postID;
+    private String user;
+    private String post;
+    private Date postDate;
     
     public PostBean() {
-        
+        postID = null;
+        user = "";
+        post = "";
+        postDate = null;
     }
     
     public void setPostID(UUID postID)

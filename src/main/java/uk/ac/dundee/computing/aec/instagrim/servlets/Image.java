@@ -156,7 +156,7 @@ public class Image extends HttpServlet {
             HttpSession session=request.getSession();
             LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
             String username="majed";
-            if (lg.getlogedin()){
+            if (lg.getloggedin()){
                 username=lg.getUsername();
             }
             if (i > 0) {

@@ -63,7 +63,7 @@ public class EditProfile extends HttpServlet {
            return;
         }
         
-        if(!lg.getlogedin())
+        if(!lg.getloggedin())
         {
             RequestDispatcher rd = request.getRequestDispatcher("/Login");
             request.setAttribute("Message", "not Logged In");

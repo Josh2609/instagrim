@@ -11,10 +11,18 @@ package uk.ac.dundee.computing.aec.instagrim.stores;
  */
 public class ProfileBean {
     
-    private String username = null;
-    private String firstName = null;
-    private String lastName = null;
-    private String email = null;
+    private String username;
+    private String firstName;
+    private String lastName;
+    private String email;
+    
+    public ProfileBean()
+    {
+        String username = null;
+        String firstName = null;
+        String lastName = null;
+        String email = null;
+    }
 
     
     public String getUsername()

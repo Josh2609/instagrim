@@ -13,10 +13,18 @@ import java.util.UUID;
  * @author joshcorps
  */
 public class RelationshipBean {
-    UUID relationshipID = null;
-    String followedUser = "";
-    String followedByUser = "";
-    Date followDate = null;
+    private UUID relationshipID;
+    private String followedUser;
+    private String followedByUser;
+    private Date followDate;
+    
+    public RelationshipBean()
+    {
+        relationshipID = null;
+        followedUser = "";
+        followedByUser = "";
+        followDate = null;
+    }
     
     public void setRelationshipID(UUID relationshipID)
     {   this.relationshipID = relationshipID;   }

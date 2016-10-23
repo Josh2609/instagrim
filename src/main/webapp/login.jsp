@@ -29,15 +29,15 @@
                         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
                         if (lg != null) {
                             String UserName = lg.getUsername();
-                            if (lg.getlogedin()) {
+                            if (lg.getloggedin()) {
                     %>
 
                     <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Images</a></li>
                      <%}
                                }else{
                               %>
-                    <li><a href="register.jsp">Register</a></li>
-                <li><a class="active" href="login.jsp">Login</a></li>
+                    <li><a href="${pageContext.request.contextPath}/Register">Register</a></li>
+                <li><a class="active" href="${pageContext.request.contextPath}/Login">Login</a></li>
                  <%  }%>
             </ul>
         </div>
