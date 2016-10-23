@@ -34,13 +34,15 @@
 			if (lg.getUsername().equals(profileToGet)) 
 			{ %>
 			    <li><a class="active" href="${pageContext.request.contextPath}/Profile/<%=lg.getUsername()%>"><%=lg.getUsername()%></a></li>
+                            <li><a href="${pageContext.request.contextPath}/Logout">Logout</a></li>
                             <form action="${pageContext.request.contextPath}/Search" method="POST">
                                 <input type="text" placeholder="Search" name="searchQuery">
                                 <input type="submit" value="Submit">
                             </form>                    
                         <%} else { %>
 			    <li><a href="${pageContext.request.contextPath}/Profile/<%=lg.getUsername()%>"><%=lg.getUsername()%></a></li>
-			<% }
+                            <li><a href="${pageContext.request.contextPath}/Logout">Logout</a></li>
+                        <% }
                     }
 		%>
             </ul>

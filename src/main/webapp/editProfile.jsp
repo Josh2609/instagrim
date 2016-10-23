@@ -33,6 +33,7 @@
 			if (lg.getlogedin()) 
 			{ %>
 			    <li><a class="active" href="profile.jsp"><%=UserName%></a></li>
+                            <li><a href="${pageContext.request.contextPath}/Logout">Logout</a></li>
                             <form action="${pageContext.request.contextPath}/Search" method="POST">
                                 <input type="text" placeholder="Search" name="searchQuery">
                                 <input type="submit" value="Submit">
