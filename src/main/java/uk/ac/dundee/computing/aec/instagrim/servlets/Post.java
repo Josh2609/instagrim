@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.UUID;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -68,5 +69,17 @@ public class Post extends HttpServlet {
         request.setAttribute("Username", profileToGet);
         rd.forward(request, response);  
         
+    }
+    
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        String user = request.getParameter("username");
+        String post = request.getParameter("post");
+        PostModel pm = new PostModel();
+        pm.setCluster(cluster);
+        pm.insertPost(user, post);
+        
+        response.sendRedirect("/Instagrim/Posts/"+user);
     }
 }

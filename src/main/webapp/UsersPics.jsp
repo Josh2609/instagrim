@@ -91,16 +91,16 @@
             iterator = lsPics.iterator();
             while (iterator.hasNext()) {
                 Pic p = (Pic) iterator.next();
-
         %>
-        <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img style="max-width: 50%" src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/><%
-
-            
-            
-        %>
-        
-        <%
-                    if (lsComments != null) 
+        <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img style="max-width: 50%" src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/> 
+            <form method="POST"  action="${pageContext.request.contextPath}/ImageComment">
+                    <input type="text" name="username" value="<%=lg.getUsername()%>" hidden>
+                    <input type="text" name="picOwner" value="<%=profileToGet%>" hidden>
+                    <input type="text" name="picID" value="<%=p.getSUUID()%>" hidden>
+                    <textarea name="comment" rows="2" style="width: 40%" placeholder="New Comment"></textarea>
+                    <input type="submit" value="Comment" name="CommentSubmit">
+            </form>
+        <%if (lsComments != null) 
                     {
                         Iterator<ImageCommentBean> commentIterator;
                         commentIterator = lsComments.iterator();

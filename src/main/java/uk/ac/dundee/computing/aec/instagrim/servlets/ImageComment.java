@@ -10,11 +10,21 @@ import java.io.IOException;
 import java.util.UUID;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.PicModel;
+
+@WebServlet(urlPatterns = {
+    "/ImageComment",
+    "/ImageComment/*",
+    "/ImageComments",
+    "/ImageComments/*",
+})
+@MultipartConfig
 
 /**
  *
@@ -32,14 +42,16 @@ public class ImageComment extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        UUID commentID;
-        UUID picID = UUID.fromString(request.getParameter("picid"));
-        String username = request.getParameter("username");
+
+        UUID picID = UUID.fromString(request.getParameter("picID"));
+        String user = request.getParameter("username");
         String comment = request.getParameter("comment");
+        String imageOwner = request.getParameter("picOwner");
         
         PicModel pm = new PicModel();
         pm.setCluster(cluster);
-        pm.insertComment(picID, username, comment);
+        pm.insertComment(picID, user, comment);
     
+        response.sendRedirect("/Instagrim/Images/"+imageOwner);
     }
 }

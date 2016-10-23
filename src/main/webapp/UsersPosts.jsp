@@ -75,6 +75,12 @@
            <% if (lg.getUsername().equals(profileToGet))               // Change address for EditProfile **EDIT**
 		{ %>
                     <h1>Your Posts</h1>
+                    <form method="POST"  action="${pageContext.request.contextPath}/Post">
+                        <input type="text" name="username" value="<%=lg.getUsername()%>" hidden>
+                        <textarea name="post" rows="4" style="width: 80%" placeholder="New Post"></textarea>
+                        <input type="submit" value="Post" name="PostSubmit">
+                    </form>
+                    <br><br>
 		<%} else {%>  	
                     <h1><%=profileToGet%>'s Posts</h1>
                 <%}%>  

@@ -36,21 +36,21 @@ public final class Keyspaces {
                     + "pic_added timestamp,\n"
                     + "PRIMARY KEY (user,pic_added)\n"
                     + ") WITH CLUSTERING ORDER BY (pic_added desc);";
-            String CreateUserPostList = "CREAT TABLE if not exists instagrim.userpostlist ( \n"
+            String CreateUserPostList = "CREATE TABLE if not exists instagrim.userpostlist ( \n"
                     + "postid uuid,\n"
                     + "user varchar,\n"
                     + "post varchar,\n"
                     + "post_added timestamp,\n"
-                    + "PRIMARY KEY (postid, user)\n"
-                    + ") WITH CLUSTORING ORDER BY (post_added desc);";
+                    + "PRIMARY KEY (user, post_added)\n"
+                    + ") WITH CLUSTERING ORDER BY (post_added desc);";
             String CreatePicCommentList = "CREATE TABLE if not exists instagrim.piccommentlist ( \n"
                     + "commentid uuid,\n"
                     + "picid uuid,\n"
                     + "user varchar,\n"
                     + "comment varchar,\n"
                     + "comment_added timestamp,\n"
-                    + "PRIMARY KEY (picid, commentid)\n"
-                    + ") WITH CLUSTORING ORDER BY (comment_added desc);";
+                    + "PRIMARY KEY (picid, comment_added)\n"
+                    + ") WITH CLUSTERING ORDER BY (comment_added desc);";
             String CreateAddressType = "CREATE TYPE if not exists instagrim.address (\n"
                     + "      street text,\n"
                     + "      city text,\n"
@@ -107,6 +107,20 @@ public final class Keyspaces {
                 session.execute(cqlQuery);
             } catch (Exception et) {
                 System.out.println("Can't create Address Profile " + et);
+            }
+            System.out.println("" + CreateUserPostList);
+            try {
+                SimpleStatement cqlQuery = new SimpleStatement(CreateUserPostList);
+                session.execute(cqlQuery);
+            } catch (Exception et) {
+                System.out.println("Can't create User Post List " + et);
+            }
+            System.out.println("" + CreatePicCommentList);
+            try {
+                SimpleStatement cqlQuery = new SimpleStatement(CreatePicCommentList);
+                session.execute(cqlQuery);
+            } catch (Exception et) {
+                System.out.println("Can't create Pic Comment List " + et);
             }
             session.close();
 
