@@ -18,10 +18,10 @@ public class ProfileBean {
     
     public ProfileBean()
     {
-        String username = null;
-        String firstName = null;
-        String lastName = null;
-        String email = null;
+        username = null;
+        firstName = null;
+        lastName = null;
+        email = null;
     }
 
     

@@ -26,11 +26,24 @@ public class Logout extends HttpServlet {
     
     Cluster cluster=null;
 
+    /**
+     *
+     * @param config
+     * @throws ServletException
+     */
     @Override
     public void init(ServletConfig config) throws ServletException {
         cluster = CassandraHosts.getCluster();
     }
     
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         

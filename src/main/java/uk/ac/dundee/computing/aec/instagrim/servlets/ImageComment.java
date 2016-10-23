@@ -33,6 +33,11 @@ import uk.ac.dundee.computing.aec.instagrim.models.PicModel;
 public class ImageComment extends HttpServlet {
     private Cluster cluster;
     
+    /**
+     *
+     * @param config
+     * @throws ServletException
+     */
     @Override
     public void init(ServletConfig config) throws ServletException 
     {
@@ -40,6 +45,14 @@ public class ImageComment extends HttpServlet {
         cluster = CassandraHosts.getCluster();
     }
     
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
 

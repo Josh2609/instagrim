@@ -23,7 +23,6 @@ import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.models.RelationshipModel;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
-import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 import uk.ac.dundee.computing.aec.instagrim.stores.ProfileBean;
 
 @WebServlet(name = "Profile", urlPatterns = 
@@ -40,12 +39,25 @@ import uk.ac.dundee.computing.aec.instagrim.stores.ProfileBean;
 public class Profile extends HttpServlet {
     private Cluster cluster = null;
     
+    /**
+     *
+     * @param config
+     * @throws ServletException
+     */
     @Override
     public void init(ServletConfig config) throws ServletException 
     {
         cluster = CassandraHosts.getCluster();
     }
     
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         User user = new User();
@@ -64,17 +76,13 @@ public class Profile extends HttpServlet {
         else
             request.setAttribute("alreadyFollows", "false");
         
-            try {
-                profile = user.getUserProfile(profile, profileToGet);
-            } catch (Exception ex) {
-                Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                request.setAttribute("ProfileBean", profile);
-                RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
-                rd.forward(request, response);
-
-        //}
-        
-    }
-    
+        try {
+            profile = user.getUserProfile(profile, profileToGet);
+        } catch (Exception ex) {
+            Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.setAttribute("ProfileBean", profile);
+        RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
+        rd.forward(request, response);  
+    }   
 }

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package uk.ac.dundee.computing.aec.instagrin.filters;
+package uk.ac.dundee.computing.aec.instagrim.filters;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -102,6 +102,7 @@ public class ProtectPages implements Filter {
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet error occurs
      */
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
@@ -155,6 +156,7 @@ public class ProtectPages implements Filter {
 
     /**
      * Return the filter configuration object for this filter.
+     * @return 
      */
     public FilterConfig getFilterConfig() {
         return (this.filterConfig);
@@ -172,12 +174,15 @@ public class ProtectPages implements Filter {
     /**
      * Destroy method for this filter
      */
+    @Override
     public void destroy() {        
     }
 
     /**
      * Init method for this filter
+     * @param filterConfig
      */
+    @Override
     public void init(FilterConfig filterConfig) {        
         this.filterConfig = filterConfig;
         if (filterConfig != null) {

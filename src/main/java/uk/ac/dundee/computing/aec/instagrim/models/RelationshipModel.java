@@ -13,7 +13,6 @@ import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import java.util.Date;
 import java.util.UUID;
-import uk.ac.dundee.computing.aec.instagrim.stores.PostBean;
 import uk.ac.dundee.computing.aec.instagrim.stores.RelationshipBean;
 
 /**
@@ -108,12 +107,7 @@ public class RelationshipModel {
             rs = session.execute( // this is where the query is executed
                 bs.bind( // here you are binding the 'boundStatement'
                         followed,follower));
-            if(rs.isExhausted())
-            {
-                return false;
-            } else {
-                return true;
-            }             
+        return !rs.isExhausted();             
     }
     
     public boolean addFollower(String follower, String followed)
