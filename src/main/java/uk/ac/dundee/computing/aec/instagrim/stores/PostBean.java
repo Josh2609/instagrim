@@ -18,6 +18,10 @@ public class PostBean {
     String post = "";
     Date postDate = null;
     
+    public PostBean() {
+        
+    }
+    
     public void setPostID(UUID postID)
     {   this.postID = postID;   }
     

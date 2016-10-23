@@ -101,8 +101,8 @@ public class User {
         
         BoundStatement bs = new BoundStatement(ps);
         rs = session.execute(bs.bind(user));
-        Row row = rs.one(); //**EDIT**//
-        //set values from returned data
+        Row row = rs.one();
+
         profile.setUsername(row.getString("login"));
         profile.setFirstName(row.getString("first_name"));
         profile.setLastName(row.getString("last_name"));

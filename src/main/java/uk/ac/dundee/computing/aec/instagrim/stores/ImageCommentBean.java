@@ -13,11 +13,19 @@ import java.util.UUID;
  * @author joshcorps
  */
 public class ImageCommentBean {
-    UUID commentID = null;
-    UUID picID = null;
-    String user = "";
-    String comment = "";
-    Date commentDate = null;
+    UUID commentID;
+    UUID picID;
+    String user;
+    String comment;
+    Date commentDate;
+    
+    public ImageCommentBean (){
+        commentID = null;
+        picID = null;
+        user = "";
+        comment = "";
+        commentDate = null;
+    }
     
     public void setCommentID(UUID commentID)
     {   this.commentID = commentID;   }

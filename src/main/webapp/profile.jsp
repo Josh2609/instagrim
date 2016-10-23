@@ -59,7 +59,7 @@
                 <%
                     if (lg != null) 
 		    {
-			if (lg.getUsername().equals(profileToGet))               // Change address for EditProfile **EDIT**
+			if (lg.getUsername().equals(profileToGet))
 			{ %>
 			    <li><a href="${pageContext.request.contextPath}/EditProfile/<%=profileToGet%>">Edit Profile</a></li>
 			<%}

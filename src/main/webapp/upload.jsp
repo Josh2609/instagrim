@@ -4,6 +4,7 @@
     Author     : Administrator
 --%>
 
+<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,18 +13,40 @@
         <title>Instagrim</title>
         <link rel="stylesheet" type="text/css" href="Styles.css" />
     </head>
-    <body>
-        <h1>InstaGrim ! </h1>
-        <h2>Your world in Black and White</h2>
-        <nav>
+    <div class="pagesize">
+    <header>
+            <h1>InstaGrim ! </h1>
+            <h2>Your world in Black and White</h2>
+            
+        <div class="nav">
             <ul>
-                <li class="nav"><a href="upload.jsp">Upload</a></li>
-                <li class="nav"><a href="/Instagrim/Images/majed">Sample Images</a></li>
-            </ul>
-        </nav>
- 
-        <article>
-            <h3>File Upload</h3>
+                <li><a class="active" href="/Instagrim">Home</a></li>
+                <li><a href="upload.jsp">Upload</a></li>
+                <%
+                LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                if (lg != null) 
+		{
+                    String UserName = lg.getUsername();
+                    if (lg.getlogedin()) 
+                    { %>
+                        <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Images</a></li>
+			<li><a href="${pageContext.request.contextPath}/Profile/<%=lg.getUsername()%>"><%=UserName%></a></li>
+                        <li><a href="${pageContext.request.contextPath}/Logout">Logout</a></li>
+                        <form action="${pageContext.request.contextPath}/Search" method="POST">
+                            <input type="text" placeholder="Search" name="searchQuery">
+                            <input type="submit" value="Submit">
+                        </form>
+                    <%}   
+                }else{ %>
+                    <li><a href="${pageContext.request.contextPath}/Register">Register</a></li>
+                    <li><a href="${pageContext.request.contextPath}/Login">Login</a></li>
+                <%}%>
+            </ul>    
+        </div>
+        </header>
+            
+        <body>
+            <h1>File Upload</h1>
             <form method="POST" enctype="multipart/form-data" action="Image">
                 File to upload: <input type="file" name="upfile"><br/>
 
@@ -31,11 +54,6 @@
                 <input type="submit" value="Press"> to upload the file!
             </form>
 
-        </article>
-        <footer>
-            <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
-            </ul>
-        </footer>
-    </body>
+        </body>
+    </div>
 </html>
