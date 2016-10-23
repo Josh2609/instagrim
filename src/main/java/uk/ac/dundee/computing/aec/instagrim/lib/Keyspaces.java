@@ -64,6 +64,13 @@ public final class Keyspaces {
                     + "      email text,\n"
                     + "      addresses  map<text, frozen <address>>\n"
                     + "  );";
+            String CreateRelationshipList = "CREATE TABLE if not exists instagrim.relationshiplist (\n"
+                    + "      relationshipid uuid,\n"
+                    + "      followed_user text,\n"
+                    + "      followed_by_user text,\n"
+                    + "      followed_date timestamp,\n"
+                    + "PRIMARY KEY (followed_user, followed_by_user, relationshipid, followed_date)\n"
+                    + ") WITH CLUSTERING ORDER BY (followed_by_user desc, relationshipid desc, followed_date desc);";
             Session session = c.connect();
             try {
                 PreparedStatement statement = session
@@ -121,6 +128,13 @@ public final class Keyspaces {
                 session.execute(cqlQuery);
             } catch (Exception et) {
                 System.out.println("Can't create Pic Comment List " + et);
+            }
+            System.out.println("" + CreateRelationshipList);
+            try {
+                SimpleStatement cqlQuery = new SimpleStatement(CreateRelationshipList);
+                session.execute(cqlQuery);
+            } catch (Exception et) {
+                System.out.println("Can't create Relationship List " + et);
             }
             session.close();
 

@@ -3,6 +3,7 @@
     Created on : 10-Oct-2016, 21:07:52
     Author     : Josh
 --%>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.models.RelationshipModel"%>
 <%@page import="java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
@@ -53,8 +54,8 @@
                 <li><a class ="active" href="${pageContext.request.contextPath}/Profile/<%=profileToGet%>">Bio</a></li>
                 <li><a href="${pageContext.request.contextPath}/Posts/<%=profileToGet%>">Posts</a></li>
                 <li><a href="${pageContext.request.contextPath}/Images/<%=profileToGet%>">Images</a></li>
-                <li><a href="#">Following</a></li>
-                <li><a href="#">Followers</a></li>
+                <li><a href="${pageContext.request.contextPath}/Following/<%=profileToGet%>">Following</a></li>
+                <li><a href="${pageContext.request.contextPath}/Followers/<%=profileToGet%>">Followers</a></li>
                 <%
                     if (lg != null) 
 		    {
@@ -70,9 +71,22 @@
             <div id="profileOutline">
                 <div id="content" class="clearfix">
                     <div id="userphoto"><img src="../images/avatar.png" alt="default avatar"></div>
+                    <% 
+                if (!lg.getUsername().equals(profileToGet))
+                {
+                    if (request.getAttribute("alreadyFollows").equals("false"))
+                    { %>
                     
-                    
-                    <%
+                    <form method="POST"  action="${pageContext.request.contextPath}/Follow">
+                        <input type="text" name="followerUser" value="<%=lg.getUsername()%>" hidden>
+                        <input type="text" name="followedUser" value="<%=profileToGet%>" hidden>       
+                        <input style="width: 20% ;" type="submit" value="Follow" name="followBtn">
+                    </form>
+                    <%} else {%>
+                         <input style="width: 20%; color: white" type="submit" value="Following" disabled>
+                    <%}
+                }
+
             String username = "";
             String firstName = "";
             String lastName = "";

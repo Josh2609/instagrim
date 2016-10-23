@@ -25,6 +25,7 @@ import org.apache.commons.fileupload.util.Streams;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.models.PicModel;
+import uk.ac.dundee.computing.aec.instagrim.models.RelationshipModel;
 import uk.ac.dundee.computing.aec.instagrim.stores.ImageCommentBean;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
@@ -73,9 +74,21 @@ public class Image extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
+        
+        
         String args[] = Convertors.SplitRequestPath(request);
         String profileToGet = args[2];
         request.setAttribute("profileToGet", profileToGet);  
+        
+        RelationshipModel rm = new RelationshipModel();
+        rm.setCluster(cluster);
+        HttpSession session = request.getSession();
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        if (rm.alreadyFollowed(lg.getUsername(),profileToGet))
+            request.setAttribute("alreadyFollows", "true");
+        else
+            request.setAttribute("alreadyFollows", "false");
+        
         int command;
         try {
             command = (Integer) CommandsMap.get(args[1]);

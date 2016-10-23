@@ -7,8 +7,7 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -20,60 +19,52 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
+import uk.ac.dundee.computing.aec.instagrim.models.PostModel;
 import uk.ac.dundee.computing.aec.instagrim.models.RelationshipModel;
-import uk.ac.dundee.computing.aec.instagrim.models.User;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
-import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
-import uk.ac.dundee.computing.aec.instagrim.stores.ProfileBean;
+import uk.ac.dundee.computing.aec.instagrim.stores.PostBean;
+import uk.ac.dundee.computing.aec.instagrim.stores.RelationshipBean;
 
-@WebServlet(name = "Profile", urlPatterns = 
-        {
-            "/Profile",
-            "/Profile/*",
-        })
+@WebServlet(urlPatterns = {
+    "/Following",
+    "/Following/*",
+})
 @MultipartConfig
 
 /**
  *
  * @author joshcorps
  */
-public class Profile extends HttpServlet {
-    private Cluster cluster = null;
+public class Following extends HttpServlet {
+    private Cluster cluster;
+    private HashMap CommandsMap = new HashMap();
     
-    @Override
-    public void init(ServletConfig config) throws ServletException 
-    {
+    public void init(ServletConfig config) throws ServletException {
+        // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
     
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-    {
-        User user = new User();
-        user.setCluster(cluster);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        
         String args[] = Convertors.SplitRequestPath(request);
         String profileToGet = args[2];
-        request.setAttribute("profileToGet", profileToGet);   
-        HttpSession session = request.getSession();
-        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-        ProfileBean profile = new ProfileBean();
+        request.setAttribute("profileToGet", profileToGet);
         
         RelationshipModel rm = new RelationshipModel();
         rm.setCluster(cluster);
+        HttpSession session = request.getSession();
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         if (rm.alreadyFollowed(lg.getUsername(),profileToGet))
             request.setAttribute("alreadyFollows", "true");
         else
             request.setAttribute("alreadyFollows", "false");
         
-            try {
-                profile = user.getUserProfile(profile, profileToGet);
-            } catch (Exception ex) {
-                Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                request.setAttribute("ProfileBean", profile);
-                RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
-                rd.forward(request, response);
-
-        //}
+        java.util.LinkedList<RelationshipBean> lsFollowing = rm.getFollowing(profileToGet);
+        RequestDispatcher rd = request.getRequestDispatcher("/following.jsp");
+        request.setAttribute("Following", lsFollowing);
+        request.setAttribute("Username", profileToGet);
+        rd.forward(request, response);  
         
     }
     

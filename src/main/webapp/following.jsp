@@ -1,7 +1,7 @@
 <%-- 
-    Document   : UsersPics
-    Created on : Sep 24, 2014, 2:52:48 PM
-    Author     : Administrator
+    Document   : following
+    Created on : 23-Oct-2016, 15:10:06
+    Author     : joshcorps
 --%>
 
 <%@page import="java.util.*"%>
@@ -52,10 +52,11 @@
              <div class="nav">
              <ul>
                 <li><a href="${pageContext.request.contextPath}/Profile/<%=profileToGet%>">Bio</a></li>
-                <li><a class="active" href="${pageContext.request.contextPath}/Posts/<%=profileToGet%>">Posts</a></li>
+                <li><a href="${pageContext.request.contextPath}/Posts/<%=profileToGet%>">Posts</a></li>
                 <li><a href="${pageContext.request.contextPath}/Images/<%=profileToGet%>">Images</a></li>
-                <li><a href="${pageContext.request.contextPath}/Following/<%=profileToGet%>">Following</a></li>
+                <li><a class="active" href="${pageContext.request.contextPath}/Following/<%=profileToGet%>">Following</a></li>
                 <li><a href="${pageContext.request.contextPath}/Followers/<%=profileToGet%>">Followers</a></li>
+              
                 <%
                     if (lg != null) 
 		    {
@@ -91,32 +92,24 @@
        <article>
            <% if (lg.getUsername().equals(profileToGet))               // Change address for EditProfile **EDIT**
 		{ %>
-                    <h1>Your Posts</h1>
-                    <form method="POST"  action="${pageContext.request.contextPath}/Post">
-                        <input type="text" name="username" value="<%=lg.getUsername()%>" hidden>
-                        <textarea name="post" rows="4" style="width: 80%" placeholder="New Post"></textarea>
-                        <input type="submit" value="Post" name="PostSubmit">
-                    </form>
-                    <br><br>
+                    <h1>You are Following</h1>
 		<%} else {%>  	
-                    <h1><%=profileToGet%>'s Posts</h1>
+                    <h1><%=profileToGet%> is Following</h1>
                 <%}%>  
         <%
-            java.util.LinkedList<PostBean> lsPosts = (java.util.LinkedList<PostBean>) request.getAttribute("Posts");
-            if (lsPosts == null) {
+            java.util.LinkedList<RelationshipBean> lsFollowing = (java.util.LinkedList<RelationshipBean>) request.getAttribute("Following");
+            if (lsFollowing == null) {
         %>
-        <p>No Posts found</p>
+        <p>No Follows found</p>
         <%
         } else {
-            Iterator<PostBean> iterator;
-            iterator = lsPosts.iterator();
+            Iterator<RelationshipBean> iterator;
+            iterator = lsFollowing.iterator();
             while (iterator.hasNext()) {
-                PostBean pb = (PostBean) iterator.next();
+                RelationshipBean rb = (RelationshipBean) iterator.next();
 
         %>
-        
-        <p style="color: white"><%=pb.getPost()%>
-             - <a href="${pageContext.request.contextPath}/Profile/<%=pb.getUser()%>"><%=pb.getUser()%></a> on <%=pb.getPostDate()%> </p>
+        <p style="color: white"> <a href="${pageContext.request.contextPath}/Profile/<%=rb.getFollowedUser()%>"><%=rb.getFollowedUser()%></a></p>
         <%
 
             }
