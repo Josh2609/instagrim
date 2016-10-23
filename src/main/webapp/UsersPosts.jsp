@@ -100,7 +100,8 @@
 
         %>
         
-        <p style="color: white"><%=pb.getPost()%></p>
+        <p style="color: white"><%=pb.getPost()%>
+             - <a href="${pageContext.request.contextPath}/Profile/<%=pb.getUser()%>"><%=pb.getUser()%></a> on <%=pb.getPostDate()%> </p>
         <%
 
             }

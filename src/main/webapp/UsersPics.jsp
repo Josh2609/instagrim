@@ -95,11 +95,11 @@
         %>
         <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img style="max-width: 50%" src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/> 
             <form method="POST"  action="${pageContext.request.contextPath}/ImageComment">
-                    <input type="text" name="username" value="<%=lg.getUsername()%>" hidden>
-                    <input type="text" name="picOwner" value="<%=profileToGet%>" hidden>
-                    <input type="text" name="picID" value="<%=p.getSUUID()%>" hidden>
-                    <textarea name="comment" rows="2" style="width: 40%" placeholder="New Comment"></textarea>
-                    <input type="submit" value="Comment" name="CommentSubmit">
+                <input type="text" name="username" value="<%=lg.getUsername()%>" hidden>
+                <input type="text" name="picOwner" value="<%=profileToGet%>" hidden>
+                <input type="text" name="picID" value="<%=p.getSUUID()%>" hidden>
+                <textarea name="comment" rows="2" style="width: 40%" placeholder="New Comment"></textarea>
+                <input type="submit" value="Comment" name="CommentSubmit">
             </form>
         <%if (lsComments != null) 
                     {
@@ -109,7 +109,8 @@
                             ImageCommentBean icb = (ImageCommentBean) commentIterator.next();
                             if(icb.getPicID().toString().equals(p.getSUUID()))
                             { %>
-                                <p style="color: white"><%=icb.getComment()%> - <%=icb.getUser()%>  </p>
+                                <p style="color: white"><%=icb.getComment()%> 
+                                    - <a href="${pageContext.request.contextPath}/Profile/<%=icb.getUser()%>"><%=icb.getUser()%></a> on <%=icb.getCommentDate()%> </p>
                             <%}
                         }
                     }
