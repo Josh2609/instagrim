@@ -45,12 +45,6 @@ public class Search extends HttpServlet {
         cluster = CassandraHosts.getCluster();
     }
     
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
-        
-       
-    }
-    
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         

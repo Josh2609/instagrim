@@ -30,12 +30,15 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.UUID;
 import javax.imageio.ImageIO;
 import static org.imgscalr.Scalr.*;
 import org.imgscalr.Scalr.Method;
 
 import uk.ac.dundee.computing.aec.instagrim.lib.*;
+import uk.ac.dundee.computing.aec.instagrim.stores.ImageCommentBean;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
+import uk.ac.dundee.computing.aec.instagrim.stores.PostBean;
 //import uk.ac.dundee.computing.aec.stores.TweetStore;
 
 public class PicModel {
@@ -211,6 +214,58 @@ public class PicModel {
 
         return p;
 
+    }
+    
+    public void insertComment(UUID picID, String user, String comment) {
+        Session session = cluster.connect("instagrim");
+        try 
+        {
+            UUID commentID = UUID.randomUUID();
+            Date dateAdded = new Date();     
+            PreparedStatement ps = session.prepare("insert into piccommentlist (commentid, picid, user, comment, comment_added) values (?,?,?,?,?)");
+            BoundStatement bs = new BoundStatement(ps);
+            session.execute(bs.bind(commentID, picID, user, comment, dateAdded));
+            
+            session.close();
+     
+        } catch (Exception e) {
+            System.out.println("Error --> " + e);
+        }        
+    }
+    
+    public java.util.LinkedList<ImageCommentBean> getComments() 
+    {
+        java.util.LinkedList<ImageCommentBean> ImageCommentList = new java.util.LinkedList<>();
+        Session session = cluster.connect("instagrim");
+        try 
+        {
+            PreparedStatement ps = session.prepare("select * from piccommentlist");
+            BoundStatement bs = new BoundStatement(ps);
+            ResultSet rs = null;
+            rs = session.execute( // this is where the query is executed
+                bs.bind( // here you are binding the 'boundStatement'
+                        ));
+            if(rs.isExhausted())
+            {
+                return null;
+            }else{
+                for (Row row : rs) 
+                {
+                    ImageCommentBean icb = new ImageCommentBean();
+                    icb.setCommentID(row.getUUID("commentid"));
+                    icb.setPicID(row.getUUID("picid"));
+                    icb.setUser(row.getString("user"));
+                    icb.setComment(row.getString("comment"));
+                    icb.setCommentDate(row.getDate("comment_added"));
+                    ImageCommentList.add(icb);
+                }
+            }
+        }
+        catch (Exception e) 
+        {      
+            return null;
+        }
+        return ImageCommentList;
     }
 
 }

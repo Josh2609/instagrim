@@ -34,7 +34,7 @@ public class PostModel {
         {
             UUID postID = UUID.randomUUID();
             Date dateAdded = new Date();     
-            PreparedStatement ps = session.prepare("insert into userpostlist (postid, user, post, post_added) values (?, ?, ?, ?)");
+            PreparedStatement ps = session.prepare("insert into userpostlist (postid, user, post, post_added) values (?,?,?,?)");
             BoundStatement bs = new BoundStatement(ps);
             session.execute(bs.bind(postID, user, post, dateAdded));
             
@@ -46,7 +46,7 @@ public class PostModel {
     }
     
     public java.util.LinkedList<PostBean> getPosts(String User) 
-     {
+    {
         java.util.LinkedList<PostBean> postList = new java.util.LinkedList<>();
         Session session = cluster.connect("instagrim");
         try 
